@@ -33,12 +33,12 @@ namespace ReconocimientoLibros.Controllers
 
         public ActionResult Contact(String path)
         {
-            //ReadHandwrittenTextAsync(path);
+            List<Libros> libros = ReadHandwrittenTextAsync(path);
             ViewBag.Message = "Your contact page.";
 
-            return View(db.Libro.ToList());
+            return View(libros);
         }
-        public async Task ReadHandwrittenTextAsync(String path)
+        public async Task<List<Libro>> ReadHandwrittenTextAsync(String path)
         {
             String respuesta = "";
             List<Libro> librosEncontrados = new List<Libro>();
@@ -225,6 +225,7 @@ namespace ReconocimientoLibros.Controllers
                 Console.WriteLine("\n" + e.Message);
             }
             //return View();
+            return librosEncontrados;
         }
 
         /// <summary>
