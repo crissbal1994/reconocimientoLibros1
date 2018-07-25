@@ -3,10 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp2", "ConsoleApp2\ConsoleApp2.csproj", "{A79B2404-EC5D-4346-A599-EF5287553728}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{00A7F5F0-8E9A-4C47-860D-1B597A2DAB99}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReconocimientoLibros", "ReconocimientoLibros\ReconocimientoLibros.csproj", "{F96C1F16-1CA7-40BD-B964-D82B1296F988}"
 EndProject
 Global
@@ -15,14 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A79B2404-EC5D-4346-A599-EF5287553728}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A79B2404-EC5D-4346-A599-EF5287553728}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A79B2404-EC5D-4346-A599-EF5287553728}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A79B2404-EC5D-4346-A599-EF5287553728}.Release|Any CPU.Build.0 = Release|Any CPU
-		{00A7F5F0-8E9A-4C47-860D-1B597A2DAB99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{00A7F5F0-8E9A-4C47-860D-1B597A2DAB99}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{00A7F5F0-8E9A-4C47-860D-1B597A2DAB99}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{00A7F5F0-8E9A-4C47-860D-1B597A2DAB99}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F96C1F16-1CA7-40BD-B964-D82B1296F988}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F96C1F16-1CA7-40BD-B964-D82B1296F988}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F96C1F16-1CA7-40BD-B964-D82B1296F988}.Release|Any CPU.ActiveCfg = Release|Any CPU

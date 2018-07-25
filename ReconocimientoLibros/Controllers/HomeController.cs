@@ -31,15 +31,17 @@ namespace ReconocimientoLibros.Controllers
             return View();
         }
 
-        public ActionResult Contact(String path)
+        public async Task<ActionResult> Contact(String path)
         {
-            List<Libros> libros = ReadHandwrittenTextAsync(path);
+            List<Libro> libros = await ReadHandwrittenTextAsync(path);
             ViewBag.Message = "Your contact page.";
 
             return View(libros);
         }
         public async Task<List<Libro>> ReadHandwrittenTextAsync(String path)
         {
+            path = path.Replace("%5C", "\\");
+            path = path.Replace("%3A", ":");
             String respuesta = "";
             List<Libro> librosEncontrados = new List<Libro>();
             try
@@ -172,40 +174,57 @@ namespace ReconocimientoLibros.Controllers
                     conn.Open();
                     foreach (var texto in num)
                     {
-                        string[] words = texto.Split('.');
-                        Console.WriteLine(words[0] + "" + words[1]);
-
-                        using (var command = conn.CreateCommand())
+                        if (texto.Contains("."))
                         {
-                            command.CommandText = "SELECT id FROM dbo.LibroCategorias where LibroCategorias.categoria in (" + words[0] + ") and LibroCategorias.codigo in (" + words[1] + ")";
+                            string[] words = texto.Split('.');
+                            Console.WriteLine(words[0] + "" + words[1]);
 
-                            using (var reader = await command.ExecuteReaderAsync())
+                            using (var command = conn.CreateCommand())
                             {
-                                while (await reader.ReadAsync())
+                                command.CommandText = "SELECT libro FROM dbo.LibroCategorias where LibroCategorias.categoria in (" + words[0] + ") and LibroCategorias.codigo in (" + words[1] + ")";
+
+                                using (var reader = await command.ExecuteReaderAsync())
                                 {
-                                    Console.WriteLine(reader.GetInt32(0));
-                                    idLib.Add(reader.GetInt32(0));
+                                    while (await reader.ReadAsync())
+                                    {
+                                        Console.WriteLine(reader.GetInt32(0));
+                                        idLib.Add(reader.GetInt32(0));
+                                    }
+                                    // Console.WriteLine(reader.GetInt32());
                                 }
-                                // Console.WriteLine(reader.GetInt32());
                             }
                         }
-
                     }
                     foreach (var texto in idLib)
                     {
 
                         using (var command = conn.CreateCommand())
                         {
-                            command.CommandText = "SELECT titulo FROM dbo.Libroes where Libroes.id in (" + texto + ")";
+                            command.CommandText = "SELECT * FROM dbo.Libroes where Libroes.id in (" + texto + ")";
 
                             using (var reader = await command.ExecuteReaderAsync())
                             {
                                 while (await reader.ReadAsync())
                                 {
                                     //funcion para que tome todo el valor del libro
-                                   // librosEncontrados.add(reader);
-                                    Console.WriteLine(reader.GetString(0));
-                                    respuesta = respuesta + " " + reader.GetString(0);
+                                    Libro libroN = new Libro();
+                                     libroN.Id = reader.GetInt32(0);
+                                     libroN.Titulo = reader.GetString(1);
+                                     libroN.Autor = reader.GetString(2);
+                                     libroN.Genero = reader.GetInt32(3);
+                                     libroN.Anio = reader.GetInt32(4);
+                                     libroN.Foto = reader.GetString(5);
+                                     libroN.Editorial = reader.GetString(6);
+                                    /* libroN.Id = 1;
+                                     libroN.Titulo = "titulo1";
+                                     libroN.Autor = "autor1";
+                                     libroN.Genero = 1;
+                                     libroN.Anio = 2008;
+                                     libroN.Foto = "imagen";
+                                     libroN.Editorial = "dsd";*/
+                                    librosEncontrados.Add(libroN);
+                                    // Console.WriteLine(reader.GetString(0));
+                                  //  respuesta = respuesta + " " + reader.GetString(0);
                                     // idLib.Add(reader.GetInt32(0));
                                 }
                                 // Console.WriteLine(reader.GetInt32());

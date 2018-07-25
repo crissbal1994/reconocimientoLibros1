@@ -6,13 +6,13 @@
     WebImage photo = null;
     var newFileName = "";
     var imagePath = "";
-
+    var photoPath = "";
     if (IsPost)
     {
         photo = WebImage.GetImageFromRequest();
         if (photo != null)
         {
-
+            photoPath = photo.FileName;
             newFileName = Path.GetFullPath(photo.FileName);
             imagePath = newFileName;
 
@@ -44,35 +44,18 @@
             <input type="submit" value="Abrir" id="Subir" />
         </fieldset>
     </form>
-    <h1>Imagen Cargada</h1>
+    
     @if (imagePath != "")
     {
     <div class="result">
+        <h1>Imagen Cargada</h1>
         <img src="@imagePath" alt="image" />
 
-        <input type="button" value="Mostrar Coincidencias" id="Mostrar" />
-
+        <a href="@Url.Action("Contact", "Home", new { path = newFileName })">
+            Mostrar Coincidencias
+        </a>
     </div>
     }
 </body>
 </html>
 
-@section JavaScript {
-
-    <script type="text/javascript" language="javascript">
-
-
-         $("#Mostrar").click(function () {
-
-
-
-            $(document).location = '@Url.Action("Contact", "Home")';
-
-
-
-        });
-
-
-    </script>
-
-}

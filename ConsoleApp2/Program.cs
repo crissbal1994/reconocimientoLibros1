@@ -34,7 +34,7 @@ namespace CSHttpClientSample
             Console.Write(
                 "Enter the path to an image with text you wish to read ");
             string imageFilePath = Console.ReadLine();
-
+            Console.WriteLine(imageFilePath);
             if (File.Exists(imageFilePath))
             {
                 // Make the REST API call.
@@ -188,37 +188,56 @@ namespace CSHttpClientSample
                     conn.Open();
                     foreach (var texto in num)
                     {
-                        string[] words = texto.Split('.');
-                        Console.WriteLine(words[0]+"" +words[1] );
-
-                        using (var command = conn.CreateCommand())
+                        if (texto.Contains("."))
                         {
-                            command.CommandText = "SELECT id FROM dbo.LibroCategorias where LibroCategorias.categoria in (" + words[0] +") and LibroCategorias.codigo in (" +words[1]+")";
+                            string[] words = texto.Split('.');
+                            Console.WriteLine(words[0] + "" + words[1]);
 
-                            using (var reader = await command.ExecuteReaderAsync())
+                            using (var command = conn.CreateCommand())
                             {
-                                 while (await reader.ReadAsync())
-                                 {
-                                    Console.WriteLine(reader.GetInt32(0));
-                                    idLib.Add(reader.GetInt32(0));
-                                  }
-                               // Console.WriteLine(reader.GetInt32());
+                                command.CommandText = "SELECT libro FROM dbo.LibroCategorias where LibroCategorias.categoria in (" + words[0] + ") and LibroCategorias.codigo in (" + words[1] + ")";
+
+                                using (var reader = await command.ExecuteReaderAsync())
+                                {
+                                    while (await reader.ReadAsync())
+                                    {
+                                        Console.WriteLine("id " + reader.GetInt32(0));
+                                        idLib.Add(reader.GetInt32(0));
+                                    }
+                                    // Console.WriteLine(reader.GetInt32());
+                                }
                             }
                         }
 
                     }
+                    List<String> libs = new List<String>();
                     foreach (var texto in idLib)
                     {
                        
                         using (var command = conn.CreateCommand())
                         {
-                            command.CommandText = "SELECT titulo FROM dbo.Libroes where Libroes.id in (" + texto + ")";
+                            command.CommandText = "SELECT * FROM dbo.Libroes where Libroes.id = " + texto ;
 
                             using (var reader = await command.ExecuteReaderAsync())
                             {
                                 while (await reader.ReadAsync())
                                 {
-                                    Console.WriteLine(reader.GetString(0));
+                                    //Console.WriteLine("libro"+reader.GetString(0));
+                                    Console.WriteLine("1");
+                                    Console.WriteLine(reader.GetInt32(0));
+                                    Console.WriteLine("2");
+                                    Console.WriteLine(reader.GetString(1));
+                                    Console.WriteLine("3");
+                                    Console.WriteLine(reader.GetString(2));
+                                    Console.WriteLine("4");
+                                    Console.WriteLine(reader.GetInt32(3));
+                                    Console.WriteLine("5");
+                                    Console.WriteLine(reader.GetInt32(4));
+                                    Console.WriteLine("6");
+                                    Console.WriteLine(reader.GetString(5));
+                                    Console.WriteLine("7");
+                                    Console.WriteLine(reader.GetString(6));
+                                    libs.Add(reader.GetString(1));
                                    // idLib.Add(reader.GetInt32(0));
                                 }
                                 // Console.WriteLine(reader.GetInt32());
@@ -226,6 +245,7 @@ namespace CSHttpClientSample
                         }
 
                     }
+                    Console.WriteLine(libs.Count);
 
 
 

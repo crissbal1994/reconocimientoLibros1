@@ -27,6 +27,9 @@ namespace WebApplication1.Controllers
         [NonAction]
         public async Task ReadHandwrittenTextAsync(String path)
         {
+            path=path.Replace("%5C", "\\");
+            path=path.Replace("%3A", ":");
+
             String respuesta = "";
             try
             {
