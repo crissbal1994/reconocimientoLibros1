@@ -17,7 +17,7 @@ namespace ReconocimientoLibros.Controllers
         {
             return View();
         }
-        private 
+        //private 
     }
     
 }

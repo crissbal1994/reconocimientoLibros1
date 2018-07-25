@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.SqlServer;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
 
 namespace ReconocimientoLibros.Models
 {
@@ -26,7 +25,7 @@ namespace ReconocimientoLibros.Models
 
         }
        
-        public DbSet<Libro> libros { get; set; }
+        public DbSet<Libro> Libro { get; set; }
        
     }
 }
