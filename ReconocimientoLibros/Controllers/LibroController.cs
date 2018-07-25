@@ -17,7 +17,7 @@ namespace ReconocimientoLibros.Controllers
         // GET: Libroes
         public ActionResult Index()
         {
-            return View(db.Libro.ToList());
+            return View();
         }
 
         // GET: Libroes/Details/5
