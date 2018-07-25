@@ -31,8 +31,9 @@ namespace ReconocimientoLibros.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Contact(String path)
         {
+            //ReadHandwrittenTextAsync(path);
             ViewBag.Message = "Your contact page.";
 
             return View(db.Libro.ToList());
@@ -40,6 +41,7 @@ namespace ReconocimientoLibros.Controllers
         public async Task ReadHandwrittenTextAsync(String path)
         {
             String respuesta = "";
+            List<Libro> librosEncontrados = new List<Libro>();
             try
             {
                 HttpClient client = new HttpClient();
@@ -200,6 +202,8 @@ namespace ReconocimientoLibros.Controllers
                             {
                                 while (await reader.ReadAsync())
                                 {
+                                    //funcion para que tome todo el valor del libro
+                                   // librosEncontrados.add(reader);
                                     Console.WriteLine(reader.GetString(0));
                                     respuesta = respuesta + " " + reader.GetString(0);
                                     // idLib.Add(reader.GetInt32(0));
